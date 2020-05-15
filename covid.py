@@ -25,7 +25,7 @@ def getStats(country):
 	recovered = 'Recovered: ' + colored(recoveredJson, 'green')
 	cases = 'Cases: ' + str(casesJson)
 
-	return title + "\n" + deaths + extra + "\n" + recovered + "\n" + cases + "\n"
+	return title + "\n" + deaths + extra + "\n" + recovered + "\n" + cases
 try:
 	text = getStats(country)
 	print(text)
