@@ -1,21 +1,15 @@
-import requests
+import api
 import sys
 from termcolor import colored
 
 def getStats(country):
-	url = 'https://coronavirus-19-api.herokuapp.com/countries/' + country
-	r = requests.get(url)
-
-	todayJson = r.json()["todayDeaths"]
-	overallJson = r.json()["deaths"]
-	recoveredJson = r.json()["recovered"]
-	casesJson = r.json()["cases"]
+	stats = api.fetchStats(country)
 
 	title = country.capitalize() + " COVID-19 stats:"
-	deaths = 'Deaths: ' + str(todayJson) + '/' + colored(overallJson, 'red')
-	extra = " NO DEATHS TODAY!" if todayJson == 0 else ""
-	recovered = 'Recovered: ' + colored(recoveredJson, 'green')
-	cases = 'Cases: ' + str(casesJson)
+	deaths = 'Deaths: ' + str(stats.deaths_today) + '/' + colored(stats.deaths, 'red')
+	extra = " NO DEATHS TODAY!" if stats.deaths_today == 0 else ""
+	recovered = 'Recovered: ' + colored(stats.recovered, 'green')
+	cases = 'Cases: ' + str(stats.infected)
 
 	return title + "\n" + deaths + extra + "\n" + recovered + "\n" + cases
 
@@ -31,7 +25,7 @@ def main():
 		text = getStats(country)
 		print(text)
 	except Exception as e:
-		print('It\'s not a country, bro')
+		print('It\'s not a country, bro' + str(e))
 
 
 if __name__ == "__main__":
