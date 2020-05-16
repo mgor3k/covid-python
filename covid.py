@@ -1,17 +1,10 @@
 import api
 import sys
-from termcolor import colored
+from formatter import Formatter
 
 def getStats(country):
 	stats = api.fetchStats(country)
-
-	title = country.capitalize() + " COVID-19 stats:"
-	deaths = 'Deaths: ' + str(stats.deaths_today) + '/' + colored(stats.deaths, 'red')
-	extra = " NO DEATHS TODAY!" if stats.deaths_today == 0 else ""
-	recovered = 'Recovered: ' + colored(stats.recovered, 'green')
-	cases = 'Cases: ' + str(stats.infected)
-
-	return title + "\n" + deaths + extra + "\n" + recovered + "\n" + cases
+	return Formatter.stringFrom(country, stats)
 
 def main():
 	if len(sys.argv) == 1:
@@ -22,8 +15,10 @@ def main():
 
 	country = sys.argv[1]
 	try:
-		text = getStats(country)
-		print(text)
+		stats = api.fetchStats(country)
+		formatted_text = Formatter.stringFrom(country, stats)
+		print(formatted_text)
+		
 	except Exception as e:
 		print('It\'s not a country, bro' + str(e))
 

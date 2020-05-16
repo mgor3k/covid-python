@@ -1,13 +1,7 @@
 import requests
+from stats import Stats
 
 __url = 'https://coronavirus-19-api.herokuapp.com/countries/'
-
-class Stats:
-    def __init__(self, deaths, deaths_today, recovered, infected):
-        self.deaths = deaths
-        self.deaths_today = deaths_today
-        self.recovered = recovered
-        self.infected = infected
 
 def fetchStats(country):
     request = __url + country
