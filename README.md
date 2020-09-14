@@ -2,9 +2,7 @@
 
 # covid-python
 
-i'm just learning, fuck off
-
-first app ever written in python (just by googling stuff)
+first app ever written in python (no idea what im doing here)
 
 usage
 ```
